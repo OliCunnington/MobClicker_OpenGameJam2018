@@ -133,6 +133,7 @@ public class MainMenu extends Application{
 				gamePane.spawnMonster();
 				gamePane.evolveMonsters();
 				gamePane.drawMonsters();
+				gamePane.checkClicks(gamePane.clicks);
 			
 				
 			};

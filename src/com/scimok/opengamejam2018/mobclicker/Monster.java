@@ -7,7 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 
-public class Monster extends Button{
+public class Monster {
 	
 	private long creationTime;
 	private int evolveTime;
@@ -37,14 +37,27 @@ public class Monster extends Button{
 				//parent.getChildren().remove(this);				
 			}	
 		});
-		*/
+		
 		this.setHeight(height);
 		this.setWidth(width);
+		*/
+	
 	}
 	
 	public static Monster initialize(GamePane parent) {
 		
 		Monster monster = new Monster(parent);
+		/*
+		monster.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				parent.removeMonster((Monster)arg0.getSource());
+			}
+			
+		});
+		*/
 		return monster;
 	}
 	public void evolve() {
@@ -52,8 +65,8 @@ public class Monster extends Button{
 		height += 10;
 		width += 5;
 		lives += 2;
-		this.setHeight(height);
-		this.setWidth(width);
+		//this.setHeight(height);
+		//this.setWidth(width);
 		creationTime = System.currentTimeMillis();
 	}
 	
