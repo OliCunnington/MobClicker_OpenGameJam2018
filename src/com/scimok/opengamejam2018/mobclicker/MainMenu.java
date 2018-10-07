@@ -14,7 +14,7 @@ import javafx.scene.Scene;
 public class MainMenu extends Application{
 	
 	private boolean inGame = false;
-	private int spawnTime = 1000;
+	private static int spawnTime = 1000;
 
 	public static void main(String[] args) {
 		
@@ -114,6 +114,7 @@ public class MainMenu extends Application{
 	
 	public void setGameScene(Stage primaryStage) {
 		//sets game scene
+		GamePane gamePane = new GamePane();
 		inGame = true;
 		AnimationTimer timer = new AnimationTimer() {
 			@Override
@@ -129,6 +130,11 @@ public class MainMenu extends Application{
 				 * 
 				 * The things are real
 				 */
+				gamePane.spawnMonster();
+				gamePane.evolveMonsters();
+				gamePane.drawMonsters();
+			
+				
 			};
 		};
 		timer.start();
@@ -163,9 +169,9 @@ public class MainMenu extends Application{
 		});
 		//BorderPane game = new BorderPane();
 		//BorderPane gameOptions = new BorderPane();
-		GamePane gamePane = new GamePane();
+		
 		//gameOptions.setRight(back);
-		gamePane.getChildren().add(new Monster(gamePane));
+		//gamePane.getChildren().add(gamePane.monsters);
 		try {
 			wait((long)(Math.random()*750));
 		}catch(Exception e) {}
@@ -181,13 +187,14 @@ public class MainMenu extends Application{
 		scene.getRoot().setCursor(Cursor.CROSSHAIR);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		
-		while(inGame) {
-			//Monster ArrayList?! TODO
-		}
+
 	}
 
 	public void setSpawnTime() {
 		if (spawnTime > 100) spawnTime -= 100;
+	}
+	
+	public static int getSpawnTime() {
+		return spawnTime;
 	}
 }
