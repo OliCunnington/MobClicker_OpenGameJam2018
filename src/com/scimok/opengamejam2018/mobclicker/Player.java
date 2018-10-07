@@ -5,14 +5,47 @@ import java.util.List;
 
 public class Player {
 	
+	private String name;
 	private int currency;
 	private long score;
 	private List<Upgrade> upgrades;
 
-	public Player() {
+	public Player(String name) {
+		this.name = name;
 		currency = 0;
 		score = 0;
 		upgrades = new ArrayList<Upgrade>();
-		
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setScore() {
+		score++;
+	}
+	
+	public long getScore() {
+		return score;
+	}
+	
+	public void setCurrency(int cashMoney) {
+		currency += cashMoney;
+	}
+	
+	public int getCurrency() {
+		return currency;
+	}
+	
+	public void setUpgrade(Upgrade upgrade) {
+		upgrades.add(upgrade);
+	}
+	
+	public List<Upgrade> getUpgrades(){
+		return upgrades;
+	}
+	
+	public boolean isUpgraded(Upgrade upgrade) {
+		if (upgrades.contains(upgrade)) return true;
+		else return false;
 	}
 }

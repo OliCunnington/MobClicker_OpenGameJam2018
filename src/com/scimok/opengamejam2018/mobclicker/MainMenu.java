@@ -3,10 +3,11 @@ package com.scimok.opengamejam2018.mobclicker;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 
@@ -26,7 +27,7 @@ public class MainMenu extends Application{
 	
 	
 	public void setMainMenuScene(Stage primaryStage) {
-		
+		//sets main menu scene
 		primaryStage.setTitle("Mob Clicker 2018");
 		
 		//Button inits
@@ -73,6 +74,7 @@ public class MainMenu extends Application{
 	}
 	
 	public void setCreditsScene(Stage primaryStage) {
+		//sets credits scene
 		Button back = new Button();
 		back.setText("Back");
 		back.setOnAction(new EventHandler<ActionEvent>() {
@@ -91,6 +93,7 @@ public class MainMenu extends Application{
 	}
 	
 	public void setHighScoreScene(Stage primaryStage) {
+		//sets highscore scene
 		Button back = new Button();
 		back.setText("Back");	
 		back.setOnAction(new EventHandler<ActionEvent>() {
@@ -108,8 +111,9 @@ public class MainMenu extends Application{
 	}
 	
 	public void setGameScene(Stage primaryStage) {
+		//sets game scene
 		Button back = new Button();
-		back.setText("Back");
+		back.setText("X");
 		back.setOnAction(new EventHandler<ActionEvent>() {
 			
 			public void handle(ActionEvent event) {
@@ -117,11 +121,16 @@ public class MainMenu extends Application{
 			}
 			
 		});
-		BorderPane game = new BorderPane();
-		BorderPane gameOptions = new BorderPane();
-		gameOptions.setRight(back);
-		game.setTop(gameOptions);
-		Scene scene = new Scene(game, 512, 512);
+		//BorderPane game = new BorderPane();
+		//BorderPane gameOptions = new BorderPane();
+		GamePane gamePane = new GamePane();
+		//gameOptions.setRight(back);
+		//game.setTop(gameOptions);
+		//game.setCenter(gamePane);
+		gamePane.getChildren().add(back);
+		gamePane.setTopAnchor(back, 5.0);
+		gamePane.setRightAnchor(back, 5.0);
+		Scene scene = new Scene(gamePane, 512, 512);
 		scene.getRoot().setCursor(Cursor.CROSSHAIR);
 		primaryStage.setScene(scene);
 		primaryStage.show();
