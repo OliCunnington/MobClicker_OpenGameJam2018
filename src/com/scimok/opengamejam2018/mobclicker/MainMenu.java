@@ -13,6 +13,8 @@ import javafx.scene.Scene;
 
 
 public class MainMenu extends Application{
+	
+	private boolean inGame = false;
 
 	public static void main(String[] args) {
 		
@@ -112,12 +114,25 @@ public class MainMenu extends Application{
 	
 	public void setGameScene(Stage primaryStage) {
 		//sets game scene
+		inGame = true;
 		Button back = new Button();
 		back.setText("X");
+		back.setStyle("-fx-background-color: #ff0000");
 		back.setOnAction(new EventHandler<ActionEvent>() {
 			
 			public void handle(ActionEvent event) {
+				inGame = false;
 				setMainMenuScene(primaryStage);
+			}
+			
+		});
+		Button pauseHelp = new Button();
+		pauseHelp.setText("?");
+		pauseHelp.setOnAction(new EventHandler<ActionEvent>() {
+			
+			public void handle(ActionEvent event) {
+				if(inGame) inGame = false;
+				else inGame = true;
 			}
 			
 		});
@@ -128,12 +143,22 @@ public class MainMenu extends Application{
 		//game.setTop(gameOptions);
 		//game.setCenter(gamePane);
 		gamePane.getChildren().add(back);
+		gamePane.getChildren().add(pauseHelp);
 		gamePane.setTopAnchor(back, 5.0);
 		gamePane.setRightAnchor(back, 5.0);
+		gamePane.setTopAnchor(pauseHelp, 5.0);
+		gamePane.setLeftAnchor(pauseHelp, 5.0);
 		Scene scene = new Scene(gamePane, 512, 512);
 		scene.getRoot().setCursor(Cursor.CROSSHAIR);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		while(inGame) {
+			gamePane.getChildren().add(new Monster(gamePane));
+			try {
+				wait((long)(Math.random()*750));
+			}catch(Exception e) {}
+		}
 	}
 
 }

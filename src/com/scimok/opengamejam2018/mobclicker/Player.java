@@ -45,7 +45,6 @@ public class Player {
 	}
 	
 	public boolean isUpgraded(Upgrade upgrade) {
-		if (upgrades.contains(upgrade)) return true;
-		else return false;
+		return upgrades.contains(upgrade);
 	}
 }
