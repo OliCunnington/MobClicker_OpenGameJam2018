@@ -118,8 +118,11 @@ public class MainMenu extends Application{
 			
 		});
 		BorderPane game = new BorderPane();
-		game.setCenter(back);
+		BorderPane gameOptions = new BorderPane();
+		gameOptions.setRight(back);
+		game.setTop(gameOptions);
 		Scene scene = new Scene(game, 512, 512);
+		scene.getRoot().setCursor(Cursor.CROSSHAIR);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
