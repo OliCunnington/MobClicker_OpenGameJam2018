@@ -1,5 +1,6 @@
 package com.scimok.opengamejam2018.mobclicker;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
@@ -13,6 +14,7 @@ import javafx.scene.Scene;
 public class MainMenu extends Application{
 	
 	private boolean inGame = false;
+	private int spawnTime = 1000;
 
 	public static void main(String[] args) {
 		
@@ -113,6 +115,24 @@ public class MainMenu extends Application{
 	public void setGameScene(Stage primaryStage) {
 		//sets game scene
 		inGame = true;
+		AnimationTimer timer = new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+				//TODO what the phuck goes in here?
+				/*
+				 * So this needs to check if its time to spawn a mob & if any mobs are due
+				 * to evolve. It also needs to check if the game is over.
+				 * 
+				 * Is this where I can remove them from the Monster list as well?
+				 * so im checking collisions between clicks and monsters or just 
+				 * using a action handler on the monster itself...
+				 * 
+				 * The things are real
+				 */
+			};
+		};
+		timer.start();
+		
 		Button back = new Button();
 		back.setText("X");
 		back.setStyle("-fx-background-color: #ff0000");
@@ -120,6 +140,7 @@ public class MainMenu extends Application{
 			
 			public void handle(ActionEvent event) {
 				inGame = false;
+				timer.stop();
 				setMainMenuScene(primaryStage);
 			}
 			
@@ -129,8 +150,14 @@ public class MainMenu extends Application{
 		pauseHelp.setOnAction(new EventHandler<ActionEvent>() {
 			
 			public void handle(ActionEvent event) {
-				if(inGame) inGame = false;
-				else inGame = true;
+				if(inGame) {
+					inGame = false;
+					timer.stop();
+				}
+				else {
+					inGame = true;
+					timer.start();
+				}
 			}
 			
 		});
@@ -138,6 +165,10 @@ public class MainMenu extends Application{
 		//BorderPane gameOptions = new BorderPane();
 		GamePane gamePane = new GamePane();
 		//gameOptions.setRight(back);
+		gamePane.getChildren().add(new Monster(gamePane));
+		try {
+			wait((long)(Math.random()*750));
+		}catch(Exception e) {}
 		//game.setTop(gameOptions);
 		//game.setCenter(gamePane);
 		gamePane.getChildren().add(back);
@@ -152,11 +183,11 @@ public class MainMenu extends Application{
 		primaryStage.show();
 		
 		while(inGame) {
-			gamePane.getChildren().add(new Monster(gamePane));
-			try {
-				wait((long)(Math.random()*750));
-			}catch(Exception e) {}
+			//Monster ArrayList?! TODO
 		}
 	}
 
+	public void setSpawnTime() {
+		if (spawnTime > 100) spawnTime -= 100;
+	}
 }

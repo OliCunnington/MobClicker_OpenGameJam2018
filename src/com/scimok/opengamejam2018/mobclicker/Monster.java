@@ -9,6 +9,8 @@ public class Monster extends Button{
 	private long creationTime;
 	private int evolveTime;
 	private boolean evolved;
+	private int height = 25;
+	private int width = 10;
 	
 	public Monster(GamePane parent) {
 		super();
@@ -26,14 +28,24 @@ public class Monster extends Button{
 		});
 		
 		parent.setBottomAnchor(this, 1.0);
-		double rLoc = Math.random()*500;
+		double rLoc = Math.random()*(512-this.getWidth());
 		parent.setRightAnchor(this, rLoc);
+		this.setHeight(height);
+		this.setWidth(width);
 	}
 	
 	public void evovle() {
 		evolved = true;
+		height += 10;
+		width += 5;
+		this.setHeight(height);
+		this.setWidth(width);
 	}
 	
 	//TODO checking if System.currentTimeMillis > creationTime + evolveTime...
+	
+	public boolean isEvolved() {
+		return System.currentTimeMillis() >= creationTime + evolveTime;
+	}
 
 }
