@@ -80,7 +80,9 @@ public class GamePane extends AnchorPane{
 	
 	public void checkClicks(List<double[]> clicks) {
 		for(double[] clickCoOrd: clicks) {
-			/*
+			/* TODO
+			 * 
+			 *  THIS THROWS CONCURRENT MODIFCATION EXCEPTION
 			 * need to check if coOrds fall inside any monster/box coOrd
 			 * 
 			 * if coOrd[0] in range monster.spawn & +width
@@ -104,7 +106,7 @@ public class GamePane extends AnchorPane{
 			clicks.remove(clickCoOrd);
 			*/
 			
-			/*
+			/* THIS CRASHES THE GAME
 			for(i = monsters.size()-1; i<=0 ; i--) {
 				monsters.removeIf(e -> ((clickCoOrd[0]>= monsters.get(i).spawnW && clickCoOrd[0] <= monsters.get(i).spawnW+monsters.get(i).width)&&(clickCoOrd[1]>= floor-monsters.get(i).height && clickCoOrd[1] <= floor)));
 			}
