@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 
@@ -87,7 +88,10 @@ public class MainMenu extends Application{
 			
 		});
 		BorderPane credits = new BorderPane();
-		credits.setCenter(back);
+		Text creditsText = new Text();
+		creditsText.setText("Thanks to:\n\nitch.io for putting up the Challenge\nTom for helping on deployment\nTo all the folks I did this around\nDistractions are nice and kind of key for me");
+		credits.setBottom(back);
+		credits.setCenter(creditsText);
 		Scene scene = new Scene(credits, 512, 512);
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -131,9 +135,11 @@ public class MainMenu extends Application{
 				 * The things are real
 				 */
 				gamePane.spawnMonster();
+				gamePane.removeMonsters();
 				gamePane.evolveMonsters();
 				gamePane.drawMonsters();
-				gamePane.checkClicks(gamePane.clicks);
+				//gamePane.checkClicks(gamePane.clicks);
+			
 			
 				
 			};

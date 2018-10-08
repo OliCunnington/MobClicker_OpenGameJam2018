@@ -29,18 +29,6 @@ public class GamePane extends AnchorPane{
 		canvas = new Canvas(512,512);
 		floor = canvas.getHeight()-50;
 		gc = canvas.getGraphicsContext2D();
-		//on click
-		
-		this.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				clicks.add(new double[] {arg0.getSceneX(),arg0.getSceneY()});
-			}
-			
-			
-		});
 		
 		//Basic background
 		gc.setFill(Color.BLACK);
@@ -52,7 +40,8 @@ public class GamePane extends AnchorPane{
 	
 	public void spawnMonster() {
 		if(System.currentTimeMillis()>lastSpawn+MainMenu.getSpawnTime()) {
-			monsters.add(Monster.initialize(this));
+			Monster monster = Monster.initialize(this);
+			monsters.add(monster);
 			lastSpawn = System.currentTimeMillis();
 		}
 	}
@@ -71,10 +60,11 @@ public class GamePane extends AnchorPane{
 		}
 	}
 	
-	public void removeMonster(Monster monster) {
-		monster.lives -= 1;
-		if(monster.lives == 0) {
-			monsters.remove(monster);
+	public void removeMonsters() {
+		for(Monster monster: monsters) {
+			if(monster.lives == 0) {
+				monsters.remove(monster);
+			}
 		}
 	}
 	

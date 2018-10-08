@@ -6,18 +6,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
-
-public class Monster {
+public class Monster extends Button implements EventHandler<ActionEvent>{
 	
 	private long creationTime;
 	private int evolveTime;
-	private boolean evolved;
-	Color mobCol;
-	int spawnW;
-	int height = 25;
-	int width = 10;
-	int lives = 1;
-	Random random;
+	protected Color mobCol;
+	protected int spawnW;
+	protected int height = 25;
+	protected int width = 10;
+	protected int lives = 1;
+	protected Random random;
 	
 	private Monster(GamePane parent) {
 		super();
@@ -27,41 +25,28 @@ public class Monster {
 		creationTime = System.currentTimeMillis();
 		//Evolve time should be 2-5(4.999999) seconds
 		evolveTime = (int)(Math.random()*3000)+2000;
-		evolved = false;
-		/* This is going to change -- i think
-		parent.getChildren().add(this);
-		this.setOnAction(new EventHandler<ActionEvent>(){
+		//addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+		
+		this.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				//parent.getChildren().remove(this);				
-			}	
+				lives -= 1;
+			}
+			
 		});
-		
-		this.setHeight(height);
-		this.setWidth(width);
-		*/
+	
+
 	
 	}
 	
 	public static Monster initialize(GamePane parent) {
 		
 		Monster monster = new Monster(parent);
-		/*
-		monster.setOnAction(new EventHandler<ActionEvent>(){
-
-			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				parent.removeMonster((Monster)arg0.getSource());
-			}
-			
-		});
-		*/
 		return monster;
 	}
+	
 	public void evolve() {
-		evolved = true;
 		height += 10;
 		width += 5;
 		lives += 2;
@@ -77,5 +62,13 @@ public class Monster {
 			evolve();
 		};
 	}
+
+	@Override
+	public void handle(ActionEvent event) {
+		lives -= 1;
+		//this does nothing since the boxes on the screen just use the monster
+		//co-ordinates and area not actually the monster........... REEEeeeeRRRReEeEeeEeeeEEEE
+	}
+
 
 }
