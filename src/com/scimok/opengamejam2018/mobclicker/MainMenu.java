@@ -84,7 +84,11 @@ public class MainMenu extends Application{
 		});
 		BorderPane credits = new BorderPane();
 		Text creditsText = new Text();
-		creditsText.setText("");
+		creditsText.setText("Thanks to:\n" + 
+				"\n" + 
+				"itch.io for putting up the Challenge\n" + 
+				"Tom for helping on deployment and assistance (WWTD?)\n" + 
+				"To all the folks I did this around - Distractions are nice and kind of key for me");
 		credits.setBottom(back);
 		credits.setCenter(creditsText);
 		Scene scene = new Scene(credits, 512, 512);
@@ -96,6 +100,7 @@ public class MainMenu extends Application{
 	public void setHighScoreScene(Stage primaryStage) {
 		//sets highscore scene
 		Button back = new Button();
+		Text textScore = new Text("Soon\u2122");
 		back.setText("Back");	
 		back.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -104,7 +109,8 @@ public class MainMenu extends Application{
 			}			
 		});
 		BorderPane highScores = new BorderPane();
-		highScores.setCenter(back);
+		highScores.setCenter(textScore);
+		highScores.setBottom(back);
 		Scene scene = new Scene(highScores, 512, 512);
 		primaryStage.setScene(scene);
 		primaryStage.show();
