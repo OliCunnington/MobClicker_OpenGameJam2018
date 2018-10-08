@@ -18,9 +18,7 @@ public class MainMenu extends Application{
 	private static int spawnTime = 1000;
 
 	public static void main(String[] args) {
-		
-		launch(args);
-		
+		launch(args);		
 	}
 	
 	@Override
@@ -31,17 +29,16 @@ public class MainMenu extends Application{
 	
 	public void setMainMenuScene(Stage primaryStage) {
 		//sets main menu scene
-		primaryStage.setTitle("Mob Clicker 2018");
-		
+		primaryStage.setTitle("Mob Clicker 2018");	
 		//Button inits
 		Button startBtn = new Button();
 		startBtn.setText("Start");
+		startBtn.setStyle("-fx-background-color: #00aa00");
 		startBtn.setOnAction(new EventHandler<ActionEvent>() {
 			
 			public void handle(ActionEvent event) {
 				setGameScene(primaryStage);
-			}
-			
+			}		
 		});
 		
 		Button highScoreBtn = new Button();
@@ -50,8 +47,7 @@ public class MainMenu extends Application{
 			
 			public void handle(ActionEvent event) {
 				setHighScoreScene(primaryStage);
-			}
-			
+			}		
 		});
 		
 		Button creditsBtn = new Button();
@@ -84,12 +80,11 @@ public class MainMenu extends Application{
 			
 			public void handle(ActionEvent event) {
 				setMainMenuScene(primaryStage);
-			}
-			
+			}			
 		});
 		BorderPane credits = new BorderPane();
 		Text creditsText = new Text();
-		creditsText.setText("Thanks to:\n\nitch.io for putting up the Challenge\nTom for helping on deployment\nTo all the folks I did this around\nDistractions are nice and kind of key for me");
+		creditsText.setText("");
 		credits.setBottom(back);
 		credits.setCenter(creditsText);
 		Scene scene = new Scene(credits, 512, 512);
@@ -106,8 +101,7 @@ public class MainMenu extends Application{
 			
 			public void handle(ActionEvent event) {
 				setMainMenuScene(primaryStage);
-			}
-			
+			}			
 		});
 		BorderPane highScores = new BorderPane();
 		highScores.setCenter(back);
@@ -116,6 +110,7 @@ public class MainMenu extends Application{
 		primaryStage.show();
 	}
 	
+	@SuppressWarnings("static-access")
 	public void setGameScene(Stage primaryStage) {
 		//sets game scene
 		GamePane gamePane = new GamePane();
@@ -123,30 +118,16 @@ public class MainMenu extends Application{
 		AnimationTimer timer = new AnimationTimer() {
 			@Override
 			public void handle(long now) {
-				//TODO what the phuck goes in here?
-				/*
-				 * So this needs to check if its time to spawn a mob & if any mobs are due
-				 * to evolve. It also needs to check if the game is over.
-				 * 
-				 * Is this where I can remove them from the Monster list as well?
-				 * so im checking collisions between clicks and monsters or just 
-				 * using a action handler on the monster itself...
-				 * 
-				 * The things are real
-				 */
+				
 				gamePane.spawnMonster();
 				gamePane.removeMonsters();
 				gamePane.evolveMonsters();
 				gamePane.drawMonsters();
 				gamePane.updateScore();
-				//gamePane.checkClicks(gamePane.clicks);
 			
-			
-				
-			};
+			}
 		};
-		timer.start();
-		
+		timer.start();	
 		Button back = new Button();
 		back.setText("X");
 		back.setStyle("-fx-background-color: #ff0000");
@@ -156,8 +137,7 @@ public class MainMenu extends Application{
 				inGame = false;
 				timer.stop();
 				setMainMenuScene(primaryStage);
-			}
-			
+			}			
 		});
 		Button pauseHelp = new Button();
 		pauseHelp.setText("?");
@@ -172,19 +152,9 @@ public class MainMenu extends Application{
 					inGame = true;
 					timer.start();
 				}
-			}
-			
+			}			
 		});
-		//BorderPane game = new BorderPane();
-		//BorderPane gameOptions = new BorderPane();
 		
-		//gameOptions.setRight(back);
-		//gamePane.getChildren().add(gamePane.monsters);
-		try {
-			wait((long)(Math.random()*750));
-		}catch(Exception e) {}
-		//game.setTop(gameOptions);
-		//game.setCenter(gamePane);
 		gamePane.getChildren().add(back);
 		gamePane.getChildren().add(pauseHelp);
 		gamePane.setTopAnchor(back, 5.0);
@@ -195,10 +165,9 @@ public class MainMenu extends Application{
 		scene.getRoot().setCursor(Cursor.CROSSHAIR);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-
 	}
 
-	public void setSpawnTime() {
+	public static void setSpawnTime() {
 		if (spawnTime > 100) spawnTime -= 100;
 	}
 	
