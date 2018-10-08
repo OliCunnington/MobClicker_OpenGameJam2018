@@ -1,8 +1,8 @@
 package com.scimok.opengamejam2018.mobclicker;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-//import java.util.Random;
 
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
@@ -10,27 +10,35 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 public class GamePane extends AnchorPane{
 	
 	private List<Monster> monsters;
-	protected List<double[]> clicks;
-	protected int i;
 	protected double floor;
 	protected Canvas canvas;
 	protected GraphicsContext gc;
 	private long lastSpawn;
+	protected Player player;
+	private Text scoreText;
 	
 	public GamePane() {
 		super();
+		scoreText = new Text();
 		lastSpawn = System.currentTimeMillis();
 		monsters = new ArrayList<Monster>();
-		clicks = new ArrayList<double[]>();
 		canvas = new Canvas(512,512);
 		floor = canvas.getHeight()-50;
 		gc = canvas.getGraphicsContext2D();
+		player = new Player("test");
+		scoreText.setText(player.score+" points");
+		scoreText.setStyle("-fx-background-color: #ffff00");
+		this.getChildren().add(scoreText);
+		this.setBottomAnchor(scoreText, 5.0);
+		this.setLeftAnchor(scoreText, 5.0);
 		
 		//onClick
+		/*
 		this.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 
 			@Override
@@ -42,10 +50,12 @@ public class GamePane extends AnchorPane{
 		});
 		
 		//Basic background
+		
 		gc.setFill(Color.BLACK);
 		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		gc.setFill(Color.GREEN);
 		gc.fillRect(0, floor, canvas.getWidth(), canvas.getHeight());
+		*/
 		this.getChildren().add(canvas);
 	}
 	
@@ -57,14 +67,23 @@ public class GamePane extends AnchorPane{
 		}
 	}
 	
+	public void paintBackground() {
+		
+	}
+	
+	public void updateScore() {
+		scoreText.setText(player.score+" points");
+	}
 	public void drawMonsters() {
+		this.getChildren().removeAll(monsters);
+		this.paintBackground();
 		for (Monster monster: monsters) {
 			double drawStartH = floor-monster.height;
-			monster.setX(drawStartH);
-			monster.setY(monster.spawnW);
+			monster.setY(drawStartH);
+			monster.setX(monster.spawnW);
 			monster.setHeight(monster.height);
 			monster.setWidth(monster.width);
-			monster.setStyle("-fx-background-color: #"+Integer.toHexString((int) monster.mobCol.getRed())+Integer.toHexString((int) monster.mobCol.getGreen())+Integer.toHexString((int) monster.mobCol.getBlue()));
+			monster.setStyle("-fx-background-color: #ffffff");
 		}
 		this.getChildren().addAll(monsters);
 	}
@@ -76,9 +95,21 @@ public class GamePane extends AnchorPane{
 	}
 	
 	public void removeMonsters() {
-		for(Monster monster: monsters) {
+		/*
+		Iterator<Monster> iter = monsters.iterator();
+		
+		while(iter.hasNext()) {
+			Monster monster = iter.next();
 			if(monster.lives <= 0) {
-				monsters.remove(monster);
+				iter.remove();
+			}
+		}
+		*/
+		for (int i = 0; i <monsters.size(); i++) {
+			if (monsters.get(i).lives <= 0) {
+				monsters.get(i).setVisible(false);
+				player.score += 1;
+				monsters.remove(i);
 			}
 		}
 	}
@@ -105,7 +136,7 @@ public class GamePane extends AnchorPane{
 		//threw an index out of bounds though, seem to be unable to recreate
 		
 		// DUUUUH its when you click and there are no monsters spawned
-		
+		/*
 			for(int i=monsters.size()-1;i<=0;i--) {
 				if(x >= monsters.get(i).spawnW && x <= monsters.get(i).spawnW+monsters.get(i).width) {
 					if(y >= floor-monsters.get(i).height && y <= floor) {
@@ -114,7 +145,7 @@ public class GamePane extends AnchorPane{
 					}
 				}
 			}
-			/*
+			
 			clicks.remove(clickCoOrd);
 			*/
 			

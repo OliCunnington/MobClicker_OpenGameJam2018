@@ -138,6 +138,7 @@ public class MainMenu extends Application{
 				gamePane.removeMonsters();
 				gamePane.evolveMonsters();
 				gamePane.drawMonsters();
+				gamePane.updateScore();
 				//gamePane.checkClicks(gamePane.clicks);
 			
 			

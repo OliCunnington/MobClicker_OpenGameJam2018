@@ -7,7 +7,7 @@ public class Player {
 	
 	private String name;
 	private int currency;
-	private long score;
+	protected long score;
 	private List<Upgrade> upgrades;
 
 	public Player(String name) {
